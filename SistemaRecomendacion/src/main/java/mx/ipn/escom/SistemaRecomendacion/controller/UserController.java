@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import mx.ipn.escom.SistemaRecomendacion.model.User;
+import mx.ipn.escom.SistemaRecomendacion.model.Usuario;
 import mx.ipn.escom.SistemaRecomendacion.repository.UserRepository;
 
 @Controller
@@ -19,7 +19,7 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("user/register")
-    public String registerUser(@ModelAttribute User user) {
+    public String registerUser(@ModelAttribute Usuario user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "redirect:/login";
