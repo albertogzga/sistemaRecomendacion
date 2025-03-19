@@ -1,32 +1,77 @@
 package mx.ipn.escom.SistemaRecomendacion.model;
 
-import java.util.List;
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column(nullable = false)
     private String nombre;
+    
+    @Column(nullable = false, unique = true)
     private String email;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<HistorialBusqueda> historialBusqueda;
-
-    @ManyToMany
-    @JoinTable (
-        name = "usuario_favoritos",
+    
+    @Column(nullable = false)
+    private String password;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "usuario_roles",
         joinColumns = @JoinColumn(name = "usuario_id"),
-        inverseJoinColumns = @JoinColumn(name = "contenido_id")
+        inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
+    private Set<Rol> roles;
+    
+    public Usuario() {}
+    
+    public Usuario(String nombre, String email, String password) {
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+    }
 
-    private List<Contenido> favoritos;
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }
 }
