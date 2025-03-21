@@ -1,4 +1,4 @@
-package mx.ipn.escom.SistemaRecomendacion.repository;
+package mx.ipn.escom.SistemaRecomendacion.repository;   
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
