@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Perfil de Usuario</title>
+</head>
+<body>
+    <h2>Perfil</h2>
+    <p><strong>Nombre:</strong> <span th:text="${usuario.nombre}"></span></p>
+    <p><strong>Correo:</strong> <span th:text="${usuario.email}"></span></p>
+    <a href="/logout">Cerrar Sesión</a>
+</body>
+</html>
