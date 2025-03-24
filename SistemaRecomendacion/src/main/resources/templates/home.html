@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Recomendaciones</title>
+    <style>
+        /* Reset y estilos globales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+        }
+
+        /* Encabezado */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 500px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .welcome-message {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Botones del menú */
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .menu-button {
+            background: #00c6ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .menu-button:hover {
+            background: #0072ff;
+            transform: translateY(-2px);
+        }
+
+        /* Botón de administración */
+        .admin-button {
+            background: #ff4b5c;
+        }
+
+        .admin-button:hover {
+            background: #d32f2f;
+        }
+
+        /* Botón de cerrar sesión */
+        .logout {
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffecb3;
+            transition: 0.3s;
+        }
+
+        .logout:hover {
+            text-decoration: underline;
+            color: #ffba00;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Sistema de Recomendaciones</h1>
+    </div>
+    
+    <div class="container">
+        <h1>Bienvenido</h1>
+        <p class="welcome-message" sec:authentication="name">Usuario</p>
+        
+        <div class="menu-options">
+            <a href="/libros" class="menu-button">📚 Libros</a>
+            <a href="/peliculas" class="menu-button">🎬 Películas</a>
+            <a href="/perfil" class="menu-button">👤 Mi Perfil</a>
+            
+            <!-- Botón de administración solo para usuarios con rol ADMIN -->
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/usuarios" class="menu-button admin-button">🔧 Administración</a>
+        </div>
+        
+        <a href="/logout" class="logout">Cerrar Sesión</a>
+    </div>
+</body>
+</html>

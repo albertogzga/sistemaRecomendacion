@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Exitoso</title>
+    <title>¡Error! Página no encontrada</title>
     <style>
         /* Reset y estilos globales */
         * {
@@ -18,59 +18,60 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(to right, #ff4b2b, #ff416c);
+            color: white;
+            text-align: center;
+            flex-direction: column;
         }
 
-        /* Contenedor Glassmorphism */
-        .success-container {
-            background: rgba(255, 255, 255, 0.15);
+        /* Contenedor */
+        .error-container {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 350px;
-            max-width: 100%;
-            color: white;
+            width: 80%;
+            max-width: 500px;
             animation: fadeIn 1s ease-in-out;
         }
 
         h1 {
-            font-size: 26px;
+            font-size: 80px;
             font-weight: bold;
             margin-bottom: 10px;
+            animation: bounce 1.5s infinite;
         }
 
         p {
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 20px;
-            line-height: 1.5;
         }
 
-        .checkmark {
+        .emoji {
             font-size: 50px;
-            color: #4CAF50;
-            animation: bounce 1s ease-in-out;
+            display: block;
+            margin-bottom: 15px;
+            animation: shake 1.5s infinite alternate;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            background: #00c6ff;
-            color: white;
+        .button {
+            background: white;
+            color: #ff416c;
             border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
             text-decoration: none;
+            transition: transform 0.2s, background 0.3s;
+            display: inline-block;
         }
 
-        .btn:hover {
-            background: #0072ff;
+        .button:hover {
+            background: #ffba00;
+            transform: translateY(-2px);
         }
 
         /* Animaciones */
@@ -90,17 +91,26 @@
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.2);
+                transform: scale(1.1);
             }
         }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
     </style>
 </head>
 <body>
-    <div class="success-container">
-        <div class="checkmark">✔</div>
-        <h1>¡Registro Exitoso!</h1>
-        <p>Tu cuenta ha sido creada correctamente. Ahora puedes iniciar sesión y disfrutar de nuestros servicios.</p>
-        <a href="/login" class="btn">Ir a Iniciar Sesión</a>
+    <div class="error-container">
+        <span class="emoji">😱</span>
+        <h1>Oh!</h1>
+        <p>Ha ocurrido un error inesperado.</p>
+        <a href="/" class="button">🔙 Volver al inicio</a>
     </div>
 </body>
 </html>

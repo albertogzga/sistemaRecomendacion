@@ -29,6 +29,6 @@ public class RegistroController {
         // Añadir el usuario al modelo para mostrar en la vista de registro exitoso
         model.addAttribute("usuario", usuario);
 
-        return "registroExitoso";  // Redirige a la página de registro exitoso
+        return "registerSuccess";  // Redirige a la página de registro exitoso
     }
 }

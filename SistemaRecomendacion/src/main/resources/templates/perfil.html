@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    <link rel="stylesheet" href="/css/perfil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #ff4d4d;
+        }
+
+        .profile-header {
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff4d4d;
+        }
+
+        .profile-image-upload {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #ff4d4d;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-image-upload:hover {
+            background: #e63939;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid #ff4d4d;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e63939;
+        }
+
+        .btn-secondary {
+            background: #444;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+        }
+
+        .mensaje {
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .mensaje-exito {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .mensaje-error {
+            background: #ff4d4d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Recomendaciones</h1>
+        <h2>Mi Perfil</h2>
+
+        <div class="profile-header">
+            <div class="profile-image">
+                <img th:if="${tieneImagen}" th:src="@{'/usuario/imagen/' + ${usuario.id}}" id="profileImage" alt="Foto de perfil">
+                <span th:unless="${tieneImagen}" style="font-size: 50px;">👤</span>
+                <label for="fileInput" class="profile-image-upload">+</label>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+            </div>
+            <p class="profile-name" th:text="${usuario.nombre}">Usuario</p>
+            <p class="profile-email" th:text="${usuario.email}">usuario@ejemplo.com</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="info">Información Personal</div>
+            <div class="tab" data-tab="password">Cambiar Contraseña</div>
+            <div class="tab" data-tab="image">Cambiar Imagen</div>
+        </div>
+
+        <div id="infoTab" class="tab-content active">
+            <form action="/perfil/actualizar-info" method="post">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" th:value="${usuario.nombre}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" th:value="${usuario.email}" required>
+                </div>
+
+                <div class="buttons">
+                    <a href="/home" class="btn btn-secondary">Volver</a>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="passwordTab" class="tab-content">
+            <form action="/perfil/actualizar-password" method="post">
+                <div class="form-group">
+                    <label for="password">Nueva Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar Contraseña</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="currentPassword">Contraseña Actual</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required>
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="imageTab" class="tab-content">
+            <form action="/perfil/actualizar-imagen" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="imagenPerfil">Nueva Imagen</label>
+                    <input type="file" id="imagenPerfil" name="imagen" accept="image/*" required>
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="btn btn-primary">Subir Imagen</button>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${mensaje}" class="mensaje" th:classappend="${tipoMensaje == 'error'} ? 'mensaje-error' : 'mensaje-exito'" th:text="${mensaje}">
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById(this.getAttribute('data-tab') + 'Tab').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

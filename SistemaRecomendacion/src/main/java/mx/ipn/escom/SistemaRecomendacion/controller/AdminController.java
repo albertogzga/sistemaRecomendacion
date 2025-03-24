@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
 public class AdminController {
     @GetMapping("/admin")
     public String adminPage(Authentication authentication){

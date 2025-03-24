@@ -48,7 +48,7 @@ public class ApiRegisterController {
 
             // Asignar rol de ROLE_USER por defecto
             Set<Rol> roles = new HashSet<>();
-            rolRepository.findByNombre("ROLE_USER").ifPresent(roles::add);
+            rolRepository.findByNombre("ROLE_ADMIN").ifPresent(roles::add);
             usuario.setRoles(roles);
             
             // Registrar usuario
